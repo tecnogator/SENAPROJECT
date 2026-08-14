@@ -1,0 +1,22 @@
+POSTMAN / NEWMAN — RESUMEN DE EJECUCIÓN
+Colección : OlympusGym API — Node.js + Express
+Inicio    : 1786690854193
+Solicitudes: 14
+Assertions : 46
+Fallos     : 0
+Duración   : 692 ms
+
+CP-01 Registro de usuario | POST http://localhost:3000/api/auth/register | 201 Created | 140 ms | PASS
+CP-02 Inicio de sesión | POST http://localhost:3000/api/auth/login | 200 OK | 82 ms | PASS
+CP-03 Resumen del dashboard | GET http://localhost:3000/api/dashboard/stats | 200 OK | 5 ms | PASS
+CP-04 Asignar plan alimenticio | POST http://localhost:3000/api/planes/asignar | 201 Created | 7 ms | PASS
+CP-05 Asignar rutina | POST http://localhost:3000/api/rutinas/asignar | 201 Created | 6 ms | PASS
+CP-06 Asignar suplemento | POST http://localhost:3000/api/suplementos/asignar | 201 Created | 5 ms | PASS
+CP-07 Asignar membresía | POST http://localhost:3000/api/membresias/asignar | 201 Created | 5 ms | PASS
+CP-08 Consultar planes por usuario | GET http://localhost:3000/api/planes/usuario/2 | 200 OK | 4 ms | PASS
+CP-09 Consultar rutinas por usuario | GET http://localhost:3000/api/rutinas/usuario/2 | 200 OK | 6 ms | PASS
+CN-01 Registro con email duplicado | POST http://localhost:3000/api/auth/register | 409 Conflict | 6 ms | PASS
+CN-02 Login con contraseña incorrecta | POST http://localhost:3000/api/auth/login | 401 Unauthorized | 57 ms | PASS
+CN-03 Rutina con campo obligatorio ausente | POST http://localhost:3000/api/rutinas/asignar | 400 Bad Request | 3 ms | PASS
+CN-04 Usuario inexistente | GET http://localhost:3000/api/planes/usuario/9999 | 404 Not Found | 3 ms | PASS
+CN-05 Ruta inexistente | GET http://localhost:3000/api/no-existe | 404 Not Found | 2 ms | PASS

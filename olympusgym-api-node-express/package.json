@@ -1,0 +1,23 @@
+{
+  "name": "olympusgym-api-node-express",
+  "version": "1.0.0",
+  "description": "API REST de OlympusGym implementada con Node.js y Express para GA7-220501096-AA5-EV02",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test:api": "newman run postman/OlympusGym_API.postman_collection.json -e postman/OlympusGym_Local.postman_environment.json --reporters cli,json --reporter-json-export postman/newman-results.json",
+    "evidence": "node scripts/run-evidence.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}

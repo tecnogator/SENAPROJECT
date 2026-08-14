@@ -1,0 +1,20 @@
+OLYMPUSGYM API — SESIÓN DE EVIDENCIA
+Runtime   : Node.js v24.19.0
+Framework : Express 5.2.1
+Estado    : servidor activo en http://localhost:3000
+Runner    : Postman Collection con Newman
+
+2026-08-14T07:00:54.340Z  POST 201  /api/auth/register  83 ms
+2026-08-14T07:00:54.487Z  POST 200  /api/auth/login  75 ms
+2026-08-14T07:00:54.514Z  GET  200  /api/dashboard/stats  1 ms
+2026-08-14T07:00:54.544Z  POST 201  /api/planes/asignar  1 ms
+2026-08-14T07:00:54.577Z  POST 201  /api/rutinas/asignar  1 ms
+2026-08-14T07:00:54.607Z  POST 201  /api/suplementos/asignar  1 ms
+2026-08-14T07:00:54.641Z  POST 201  /api/membresias/asignar  1 ms
+2026-08-14T07:00:54.667Z  GET  200  /api/planes/usuario/2  1 ms
+2026-08-14T07:00:54.694Z  GET  200  /api/rutinas/usuario/2  1 ms
+2026-08-14T07:00:54.726Z  POST 409  /api/auth/register  1 ms
+2026-08-14T07:00:54.820Z  POST 401  /api/auth/login  54 ms
+2026-08-14T07:00:54.839Z  POST 400  /api/rutinas/asignar  1 ms
+2026-08-14T07:00:54.857Z  GET  404  /api/planes/usuario/9999  1 ms
+2026-08-14T07:00:54.874Z  GET  404  /api/no-existe  1 ms
