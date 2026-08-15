@@ -12,7 +12,15 @@ import { requestLogger } from './middleware/requestLogger.js';
 const app = express();
 
 app.disable('x-powered-by');
-app.use(cors({ origin: process.env.FRONTEND_ORIGIN ?? 'http://localhost:5173' }));
+const allowedOrigins = (process.env.FRONTEND_ORIGINS ?? 'http://localhost:5173,http://localhost:4173')
+  .split(',')
+  .map((origin) => origin.trim());
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('Origen no permitido por CORS'));
+  }
+}));
 app.use(express.json({ limit: '1mb' }));
 app.use(requestLogger);
 
@@ -21,7 +29,18 @@ app.get('/health', (req, res) => {
     status: 'ok',
     service: 'olympusgym-api',
     runtime: `Node.js ${process.version}`,
-    framework: 'Express 5.2.1'
+    framework: 'Express 5.2.1',
+    technology: 'Node.js + Express',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api', (req, res) => {
+  res.status(200).json({
+    name: 'OlympusGym API',
+    version: '1.0.0',
+    documentation: '/health',
+    modules: ['auth', 'dashboard', 'planes', 'rutinas', 'suplementos', 'membresias']
   });
 });
 

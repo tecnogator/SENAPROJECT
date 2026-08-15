@@ -1,0 +1,10 @@
+classDiagram
+    class Usuario { id; nombreCompleto; email; rol; token }
+    class Rutina { id; dia; ejercicio; series; repeticiones }
+    class PlanAlimentacion { id; titulo; objetivo; calorias; macros; fechas }
+    class Suplemento { id; nombre; dosis; horario }
+    class Membresia { id; tipo; valor; fechaInicio; fechaFin }
+    Usuario "1" --> "*" Rutina
+    Usuario "1" --> "*" PlanAlimentacion
+    Usuario "1" --> "*" Suplemento
+    Usuario "1" --> "*" Membresia

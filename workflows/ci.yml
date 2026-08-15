@@ -1,0 +1,68 @@
+name: Validación integral OlympusGym
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  api:
+    name: API Node.js + Express
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: olympusgym-api-node-express
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+          cache: npm
+          cache-dependency-path: olympusgym-api-node-express/package-lock.json
+      - run: npm ci
+      - run: npm run evidence
+
+  frontend:
+    name: Frontend React + Vite
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: olympusgym-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+          cache: npm
+          cache-dependency-path: olympusgym-frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  mobile:
+    name: React Native + Expo
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: olympusgym-mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run validate
+
+  estructura:
+    name: Estructura del repositorio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.13.0
+      - run: npm run validate
+

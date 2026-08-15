@@ -7,8 +7,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
+    "test": "node --test tests/*.test.js",
     "test:api": "newman run postman/OlympusGym_API.postman_collection.json -e postman/OlympusGym_Local.postman_environment.json --reporters cli,json --reporter-json-export postman/newman-results.json",
-    "evidence": "node scripts/run-evidence.mjs"
+    "evidence": "npm test && node scripts/run-evidence.mjs"
   },
   "engines": {
     "node": ">=18"

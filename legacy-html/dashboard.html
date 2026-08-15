@@ -1,0 +1,333 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Cliente</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#f4f6f9;display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+    width:240px;
+    background:#111;
+    color:#fff;
+    position:fixed;
+    height:100%;
+    transition:.3s;
+    z-index:1000;
+}
+.sidebar h2{
+    padding:20px;
+    text-align:center;
+    color:#ff2e2e;
+}
+.sidebar a{
+    display:block;
+    padding:15px 20px;
+    color:#fff;
+    text-decoration:none;
+}
+.sidebar a:hover{background:#ff2e2e}
+.sidebar.active{left:-240px}
+
+/* MAIN */
+.main{
+    flex:1;
+    margin-left:240px;
+    padding:20px;
+    transition:.3s;
+}
+.main.full{margin-left:0}
+
+/* HEADER */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+.menu-btn{
+    display:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* CARDS */
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    transition: all 0.3s ease;
+}
+.card h3{
+    color:#ff2e2e;
+    margin-bottom:15px;
+}
+
+/* PERFIL */
+.perfil-container{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+.foto-perfil{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid #ff2e2e;
+}
+.perfil-info button{
+    background:#ff2e2e;
+    color:#fff;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* SUMMARY */
+.summary{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+/* PANEL DE ENTRENAMIENTOS */
+.panelEntrenamientos{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.5s ease;
+}
+
+/* TABLE */
+.table-container{
+    overflow-x:auto;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px;
+}
+th,td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+th{color:#ff2e2e}
+
+/* MOBILE */
+@media(max-width:900px){
+    .sidebar{left:-240px}
+    .sidebar.active{left:0}
+    .main{margin-left:0}
+    .menu-btn{display:block}
+    .perfil-container{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+.estado-activa{
+    color:#28a745;
+    font-weight:bold;
+}
+
+.estado-vencida{
+    color:#dc3545;
+    font-weight:bold;
+}
+
+.estado-gris{
+    color:#6c757d;
+    font-weight:bold;
+}
+
+.estado-alerta{
+    color: #fd7e14; /* naranja */
+    font-weight: bold;
+}
+.estado-alerta{
+    color: #fd7e14; /* naranja */
+    font-weight: bold;
+}
+.barra-membresia{
+    height: 10px;
+    border-radius: 5px;
+    background: #28a745;
+    margin-top: 5px;
+    transition: width 0.5s;
+}
+.barra-membresia.alerta{background:#fd7e14;}
+.barra-membresia.vencida{background:#dc3545;}
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+<h2>OlympusGym</h2>
+<a href="#">🏠 Panel</a>
+<a href="#rutina">🏋️ Rutina</a>
+<a href="#alimentacion">🥗 Alimentación</a>
+<a href="#suplementos">💊 Suplementos</a>
+<a href="#progreso">📊 Progreso</a>
+<a href="logout.php">🚪 Cerrar sesión</a>
+</div>
+
+<div class="main" id="main">
+
+
+<div class="header">
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+<h1>Bienvenido, maria</h1>
+</div>
+
+<!-- PERFIL -->
+<div class="card">
+<div class="perfil-container">
+    <img src="uploads/perfil_1_1772077495.jpg" class="foto-perfil">
+
+    <div class="perfil-info">
+        <h3>ana maria rodriguez</h3>
+        <p><strong>Teléfono:</strong> 3215487965</p>
+        <p>
+        </p><p>
+    </p><p>
+    <strong>Membresía:</strong> 
+    <span class="estado-activa">
+        Activa (Basico)    </span>
+            <br><small>Vence el: 13/05/2026 | 
+        <span class="estado-activa">
+            29 días restantes
+        </span></small>
+        <!-- Barra visual de progreso -->
+                </p><div class="barra-membresia estado-activa" style="width: 96.666666666667%;"></div>
+    <p></p>
+            </div>
+</div>
+</div>
+
+<!-- RESUMEN -->
+<div class="summary">
+<div class="card">
+<h3>Total Pagado</h3>
+<p>$545,000.00</p>
+</div>
+
+<!-- TARJETA ENTRENAMIENTOS CLICABLE -->
+<div class="card" id="cardEntrenamientos" style="cursor:pointer;">
+    <h3>Entrenamientos 🏋️</h3>
+    <p>1</p>
+
+    <!-- Panel oculto -->
+    <div class="panelEntrenamientos">
+                    <div class="table-container">
+                <table>
+                    <tbody><tr><th>Tipo</th><th>Fecha</th><th>Completado</th></tr>
+                                            <tr>
+                            <td>sas</td>
+                            <td>2026-12-12</td>
+                            <td>No</td>
+                        </tr>
+                                    </tbody></table>
+            </div>
+            </div>
+</div>
+</div>
+
+<!-- RUTINA -->
+<div class="card" id="rutina">
+<h3>Mi Rutina</h3>
+<div class="table-container">
+<table>
+<tbody><tr><th>Día</th><th>Ejercicio</th><th>Series</th><th>Reps</th></tr>
+<tr>
+<td>lunes</td>
+<td>muslos</td>
+<td>5</td>
+<td>3</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<!-- ALIMENTACION -->
+<div class="card" id="alimentacion">
+<h3>Plan Alimentación</h3>
+
+    <p><strong>Inicio:</strong> 0121-12-12</p>
+    <p>salon</p>
+    <!-- Botón para ver el plan completo -->
+    <form action="planes.php" method="GET">
+        <input type="hidden" name="usuario_id" value="1">
+        <button type="submit" style="background:#ff2e2e;color:white;padding:8px 15px;border:none;border-radius:6px;cursor:pointer;">
+            Ver Plan Completo
+        </button>
+    </form>
+</div>
+
+<!-- SUPLEMENTOS -->
+<div class="card" id="suplementos">
+<h3>Suplementos</h3>
+<div class="table-container">
+<table>
+<tbody><tr><th>Nombre</th><th>Dosis</th><th>Horario</th></tr>
+<tr>
+<td>sal</td>
+<td>2</td>
+<td>12</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+
+<!-- PROGRESO -->
+<div class="card" id="progreso">
+<h3>Progreso de Peso</h3>
+<p>No hay registros.</p>
+</div>
+
+</div>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+// Gráfico de peso
+const progreso = [];
+if(progreso.length>0){
+    new Chart(document.getElementById('graficoPeso'),{
+        type:'line',
+        data:{
+            labels:progreso.map(p=>p.fecha),
+            datasets:[{
+                label:'Peso (kg)',
+                data:progreso.map(p=>p.peso),
+                borderColor:'#ff2e2e',
+                backgroundColor:'rgba(255,46,46,0.2)',
+                fill:true,
+                tension:0.3
+            }]
+        },
+        options:{responsive:true}
+    });
+}
+
+// Toggle entrenamientos con animación
+document.getElementById("cardEntrenamientos").addEventListener("click", function(){
+    const panel = this.querySelector(".panelEntrenamientos");
+    if(panel.style.maxHeight && panel.style.maxHeight !== "0px"){
+        panel.style.maxHeight = "0px";
+    } else {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+});
+</script>
+
+
+</body></html>

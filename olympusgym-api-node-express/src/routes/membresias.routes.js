@@ -34,4 +34,13 @@ router.post('/asignar', (req, res, next) => {
   }
 });
 
+router.get('/usuario/:usuarioId', (req, res, next) => {
+  try {
+    const user = findUserOrThrow(req.params.usuarioId);
+    res.status(200).json(store.membresias.filter((item) => item.usuario.id === user.id));
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default router;

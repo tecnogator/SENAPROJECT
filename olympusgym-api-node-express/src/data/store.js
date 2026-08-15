@@ -8,6 +8,13 @@ export const store = {
       email: 'admin@olympusgym.test',
       passwordHash: hashPassword('Admin123*'),
       rol: 'admin'
+    },
+    {
+      id: 2,
+      nombreCompleto: 'Edgar Mauricio Rodríguez Yule',
+      email: 'edgar@olympusgym.test',
+      passwordHash: hashPassword('Olympus123*'),
+      rol: 'cliente'
     }
   ],
   planes: [],

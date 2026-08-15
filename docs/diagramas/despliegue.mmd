@@ -1,0 +1,5 @@
+flowchart LR
+    APK[APK Android] --> PHONE[Teléfono / emulador]
+    PHONE -->|10.0.2.2 o IP LAN| API[Spring Boot :8080]
+    API --> DB[(H2 / MySQL)]
+    GIT[GitHub Actions] -->|assembleDebug| APK

@@ -1,0 +1,19 @@
+{
+  "name": "olympusgym-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepositorio OlympusGym: API Node.js + Express, frontend React y aplicación móvil React Native/Expo",
+  "scripts": {
+    "validate": "node scripts/validate-repository.mjs",
+    "test:api": "npm --prefix olympusgym-api-node-express run evidence",
+    "test:mobile": "npm --prefix olympusgym-mobile test",
+    "build:web": "npm --prefix olympusgym-frontend run build",
+    "dev:api": "npm --prefix olympusgym-api-node-express run dev",
+    "dev:web": "npm --prefix olympusgym-frontend run dev",
+    "dev:mobile": "npm --prefix olympusgym-mobile start",
+    "manifest": "node scripts/generate-manifest.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

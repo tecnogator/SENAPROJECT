@@ -1,0 +1,7 @@
+flowchart LR
+    U[Usuario móvil] --> UI[React Native UI]
+    UI --> CTX[Contextos de estado]
+    CTX --> API[Cliente HTTP]
+    API -->|JSON + Bearer| SPR[API Spring Boot]
+    SPR --> JPA[Servicios + JPA]
+    JPA --> DB[(H2 / MySQL)]

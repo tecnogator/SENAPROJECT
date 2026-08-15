@@ -10,6 +10,9 @@ const transcriptPath = path.join(root, 'evidencias', 'newman-transcript.txt');
 const serverLogPath = path.join(root, 'evidencias', 'server-transcript.txt');
 const serverLines = [];
 
+fs.mkdirSync(path.dirname(resultsPath), { recursive: true });
+fs.mkdirSync(path.dirname(transcriptPath), { recursive: true });
+
 const originalLog = console.log;
 console.log = (...parts) => {
   const line = parts.map(String).join(' ');

@@ -1,0 +1,199 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OlympusGym - Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===== FONDO ===== */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('img/fondo.jpg') no-repeat center center;
+
+    background-size:cover;
+}
+
+/* ===== TARJETA ===== */
+.card{
+    width:420px;
+    padding:50px 40px;
+    border-radius:25px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    color:white;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:800;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.logo span{
+    color:red;
+}
+
+.card h3{
+    font-weight:700;
+    margin-bottom:25px;
+    text-align:center;
+    letter-spacing:2px;
+    color:red;
+}
+
+/* INPUTS */
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px;
+    border:2px solid rgba(255,255,255,0.6);
+    border-radius:10px;
+    font-size:14px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    outline:none;
+}
+
+.input-group input::placeholder{
+    color:#eee;
+}
+
+.password-wrapper{
+    position:relative;
+}
+
+.password-wrapper i{
+    position:absolute;
+    right:15px;
+    top:15px;
+    cursor:pointer;
+}
+
+/* LINK ROJO */
+a{
+    font-size:13px;
+    color:red;
+    text-decoration:none;
+    font-weight:600;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* BOTONES */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    margin-top:18px;
+    font-weight:800;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+/* INICIAR SESIÓN ROJO */
+.btn-login{
+    background:red;
+    color:white;
+    box-shadow:0 8px 20px rgba(255,0,0,0.5);
+}
+
+.btn-login:hover{
+    background:#cc0000;
+    transform:translateY(-3px);
+}
+
+/* REGISTRARSE ROJO BORDE */
+.btn-register{
+    background:transparent;
+    border:2px solid red;
+    color:red;
+}
+
+.btn-register:hover{
+    background:red;
+    color:white;
+}
+
+.error{
+    color:#ff4d4d;
+    margin-bottom:15px;
+    font-size:14px;
+    text-align:center;
+}
+
+/* RESPONSIVE */
+@media(max-width:500px){
+    .card{
+        width:90%;
+        padding:40px 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="logo">
+        OlympusGym <span>▲</span>
+    </div>
+
+    <h3>INICIAR SESIÓN</h3>
+
+    
+    <form method="POST">
+
+       <div class="input-group">
+            <input type="text" name="username" placeholder="Nombre de usuario" required="">
+        </div>
+
+        <div class="input-group password-wrapper">
+            <input type="password" name="password" id="password" placeholder="Contraseña" required="">
+            <i onclick="togglePassword()">👁</i>
+        </div>
+
+<a href="forgot_password.php">¿Olvidaste tu contraseña?</a>
+        <button type="submit" class="btn-login">INICIAR SESIÓN</button>
+<a href="register.php">
+    <button type="button" class="btn-register">REGISTRARSE</button>
+</a>
+    </form>
+
+</div>
+
+<script>
+function togglePassword() {
+    var input = document.getElementById("password");
+    input.type = input.type === "password" ? "text" : "password";
+}
+</script>
+
+
+</body></html>
