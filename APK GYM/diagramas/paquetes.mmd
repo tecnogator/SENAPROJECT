@@ -1,0 +1,8 @@
+flowchart TB
+    APP[App.js] --> NAV[navigation]
+    NAV --> SCR[screens]
+    SCR --> CMP[components]
+    SCR --> CTX[context]
+    CTX --> SRV[services]
+    SRV --> DOM[domain + utils]
+    CMP --> THEME[theme]

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1242" height="2436" viewBox="0 0 1242 2436">
+  <rect width="1242" height="2436" fill="#11131A"/>
+  <rect x="431" y="850" width="380" height="380" rx="105" fill="#E51D3F"/>
+  <path d="M500 1000h45v-35h45v165h-45v-35h-45v-95zm242 0h-45v-35h-45v165h45v-35h45v-95zm-152 27h62v44h-62z" fill="#FFFFFF"/>
+  <text x="621" y="1325" text-anchor="middle" fill="#E51D3F" font-family="Arial" font-size="86" font-weight="800">Olympus<tspan fill="#FFFFFF">Gym</tspan></text>
+  <text x="621" y="1395" text-anchor="middle" fill="#AEB5C5" font-family="Arial" font-size="34">Entrena. Progresa. Supera.</text>
+</svg>

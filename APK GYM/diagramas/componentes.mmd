@@ -1,0 +1,10 @@
+flowchart TB
+    AUTH[Autenticación] --> SHELL[AppNavigator]
+    SHELL --> DASH[Dashboard]
+    SHELL --> TRAIN[Rutinas]
+    SHELL --> NUT[Nutrición]
+    SHELL --> MORE[Suplementos y membresías]
+    DASH --> DATA[GymDataContext]
+    TRAIN --> DATA
+    NUT --> DATA
+    MORE --> DATA

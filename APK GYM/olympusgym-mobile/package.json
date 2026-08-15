@@ -1,0 +1,28 @@
+{
+  "name": "olympusgym-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate-project.mjs",
+    "prebuild:android": "expo prebuild --platform android --clean --no-install",
+    "apk:debug": "npm run prebuild:android && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "expo": "~57.0.1",
+    "expo-secure-store": "~57.0.0",
+    "expo-status-bar": "~57.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
