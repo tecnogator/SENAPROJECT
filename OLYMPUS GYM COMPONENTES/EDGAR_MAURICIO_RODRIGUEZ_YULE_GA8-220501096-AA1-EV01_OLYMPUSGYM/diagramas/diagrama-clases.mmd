@@ -1,0 +1,16 @@
+classDiagram
+  class Usuario {
+    +number id
+    +string nombreCompleto
+    +string email
+    +string passwordHash
+    +string rol
+  }
+  class Rutina { +number id +string dia +string ejercicio +number series +number repeticiones }
+  class PlanAlimentacion { +number id +string titulo +number calorias +date fechaInicio +date fechaFin }
+  class Suplemento { +number id +string nombre +string dosis +string horario }
+  class Membresia { +number id +string tipo +number valor +date fechaInicio +date fechaFin }
+  Usuario "1" --> "0..*" Rutina
+  Usuario "1" --> "0..*" PlanAlimentacion
+  Usuario "1" --> "0..*" Suplemento
+  Usuario "1" --> "0..*" Membresia

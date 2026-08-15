@@ -1,0 +1,8 @@
+flowchart LR
+  U[Usuario] --> R[React + Vite]
+  R -->|JSON + Bearer| E[Node.js + Express]
+  E --> M[Middleware de seguridad]
+  M --> S[Servicios por módulo]
+  S --> D[(Repositorio JSON)]
+  D --> S
+  S -->|Respuesta HTTP| R

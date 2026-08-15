@@ -1,0 +1,38 @@
+2026-08-14T18:53:30.167Z  GET  200  /health  3 ms
+✔ health identifica el runtime Node.js y Express (60.779986ms)
+2026-08-14T18:53:30.212Z  GET  401  /api/dashboard/stats  1 ms
+✔ las rutas privadas rechazan solicitudes sin Bearer token (40.848273ms)
+2026-08-14T18:53:30.288Z  POST 201  /api/auth/register  32 ms
+✔ registro seguro devuelve token y nunca expone credenciales (76.006839ms)
+2026-08-14T18:53:30.357Z  POST 201  /api/auth/register  32 ms
+2026-08-14T18:53:30.392Z  POST 200  /api/auth/login  32 ms
+✔ inicio de sesión autentica credenciales válidas (103.73184ms)
+2026-08-14T18:53:30.459Z  POST 201  /api/auth/register  32 ms
+2026-08-14T18:53:30.462Z  POST 201  /api/rutinas/asignar  1 ms
+2026-08-14T18:53:30.473Z  POST 201  /api/planes/asignar  9 ms
+2026-08-14T18:53:30.476Z  POST 201  /api/suplementos/asignar  0 ms
+2026-08-14T18:53:30.480Z  POST 201  /api/membresias/asignar  1 ms
+2026-08-14T18:53:30.483Z  GET  200  /api/rutinas/usuario/2  0 ms
+2026-08-14T18:53:30.485Z  GET  200  /api/planes/usuario/2  0 ms
+2026-08-14T18:53:30.487Z  GET  200  /api/suplementos/usuario/2  0 ms
+2026-08-14T18:53:30.489Z  GET  200  /api/membresias/usuario/2  0 ms
+2026-08-14T18:53:30.492Z  GET  200  /api/dashboard/stats  0 ms
+✔ integra rutinas, alimentación, suplementos y membresías (99.588454ms)
+2026-08-14T18:53:30.558Z  POST 201  /api/auth/register  31 ms
+2026-08-14T18:53:30.561Z  POST 400  /api/rutinas/asignar  0 ms
+✔ valida campos obligatorios y conserva un contrato de error (69.551765ms)
+2026-08-14T18:53:30.627Z  POST 201  /api/auth/register  31 ms
+2026-08-14T18:53:30.630Z  POST 409  /api/auth/register  0 ms
+✔ impide registrar correos duplicados (67.922589ms)
+✔ la contraseña se almacena mediante scrypt y no en texto plano (84.265398ms)
+✔ una contraseña incorrecta no supera la verificación (63.027048ms)
+✔ el token firmado conserva usuario, rol y expiración (0.776402ms)
+✔ un token alterado es rechazado (0.167879ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 884.043705

@@ -1,0 +1,11 @@
+OLYMPUSGYM — REPOSITORIO PÚBLICO
+
+Repositorio principal:
+https://github.com/tecnogator/SENAPROJECT
+
+Versión histórica del frontend usada como base del mismo proyecto:
+https://github.com/tecnogator/SENAPROJECT/tree/4a5e460ce8d3179b3d1ad4a1e7e4b402ccb3bb80/olympusgym-frontend
+
+Aprendiz: Edgar Mauricio Rodríguez Yule
+Ficha: 3186619
+Evidencia: GA8-220501096-AA1-EV01

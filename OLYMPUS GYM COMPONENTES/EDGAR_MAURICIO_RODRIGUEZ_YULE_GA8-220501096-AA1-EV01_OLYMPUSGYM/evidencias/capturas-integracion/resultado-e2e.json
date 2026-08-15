@@ -1,0 +1,127 @@
+{
+  "evidence": "GA8-220501096-AA1-EV01",
+  "stack": "React + Node.js + Express",
+  "result": "PASS",
+  "modules": [
+    "auth",
+    "dashboard",
+    "memberships",
+    "routines",
+    "nutrition",
+    "supplements",
+    "tutorial"
+  ],
+  "apiCalls": [
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:3000/api/auth/register",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/dashboard/stats",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/dashboard/stats",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:3000/api/membresias/asignar",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/rutinas/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/rutinas/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:3000/api/rutinas/asignar",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/rutinas/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/planes/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/planes/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:3000/api/planes/asignar",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/planes/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "url": "http://127.0.0.1:3000/api/suplementos/asignar",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/dashboard/stats",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/dashboard/stats",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:3000/api/membresias/usuario/2",
+      "status": 200
+    }
+  ],
+  "generatedAt": "2026-08-14T18:51:31.547Z"
+}

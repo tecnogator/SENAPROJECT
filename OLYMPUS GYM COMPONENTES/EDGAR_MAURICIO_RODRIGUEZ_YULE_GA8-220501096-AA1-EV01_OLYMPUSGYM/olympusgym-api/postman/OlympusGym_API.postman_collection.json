@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "5a091c8b-2518-4654-b6e6-olympusgym-api",
+    "name": "OlympusGym API — Node.js + Express",
+    "description": "Validación reproducible de los módulos integrados de OlympusGym para GA8-220501096-AA1-EV01. Colección ejecutada contra Express en localhost:3000.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CP-01 Registro de usuario",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombreCompleto\": \"María González\",\n  \"email\": \"{{emailDemo}}\",\n  \"password\": \"{{passwordDemo}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/auth/register",
+        "description": "Crea el usuario cliente que se emplea en los casos siguientes."
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 201 Created', () => pm.response.to.have.status(201));",
+            "pm.test('Respuesta JSON', () => pm.response.to.be.json);",
+            "var responseJson = pm.response.json();",
+            "pm.test('Usuario creado con id', () => pm.expect(responseJson.id).to.be.a('number'));",
+            "pm.test('No expone password', () => { pm.expect(responseJson).not.to.have.property('password'); pm.expect(responseJson).not.to.have.property('passwordHash'); });",
+            "pm.test('Token generado', () => pm.expect(responseJson.token).to.be.a('string').and.not.empty);",
+            "pm.environment.set('usuarioId', String(responseJson.id));",
+            "pm.environment.set('token', responseJson.token);"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-02 Inicio de sesión",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{emailDemo}}\",\n  \"password\": \"{{passwordDemo}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/auth/login"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 200 OK', () => pm.response.to.have.status(200));",
+            "pm.test('Respuesta JSON', () => pm.response.to.be.json);",
+            "var responseJson = pm.response.json();",
+            "pm.test('Token generado', () => pm.expect(responseJson.token).to.be.a('string').and.not.empty);",
+            "pm.test('No expone password', () => { pm.expect(responseJson).not.to.have.property('password'); pm.expect(responseJson).not.to.have.property('passwordHash'); });",
+            "pm.environment.set('token', responseJson.token);"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-03 Resumen del dashboard",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/dashboard/stats" },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 200 OK', () => pm.response.to.have.status(200));",
+            "pm.test('Respuesta JSON', () => pm.response.to.be.json);",
+            "var responseJson = pm.response.json();",
+            "pm.test('Contiene indicadores', () => { ['totalUsuarios','totalClientes','totalRutinas','totalIngresos'].forEach(k => pm.expect(responseJson).to.have.property(k)); });",
+            "pm.test('Valores numéricos', () => Object.values(responseJson).forEach(v => pm.expect(v).to.be.a('number')));"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-04 Asignar plan alimenticio",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": { \"id\": {{usuarioId}} },\n  \"titulo\": \"Definición 8 semanas\",\n  \"objetivo\": \"Definición\",\n  \"descripcion\": \"Plan para perder grasa preservando masa muscular\",\n  \"calorias\": 2000,\n  \"proteinas\": 180,\n  \"carbohidratos\": 150,\n  \"grasas\": 50,\n  \"fechaInicio\": \"2026-08-14\",\n  \"fechaFin\": \"2026-10-09\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/planes/asignar"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 201 Created', () => pm.response.to.have.status(201));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Plan creado con id', () => pm.expect(responseJson.id).to.be.a('number'));",
+            "pm.test('Asociado al usuario', () => pm.expect(responseJson.usuario.id).to.eql(Number(pm.environment.get('usuarioId'))));",
+            "pm.test('Calorías correctas', () => pm.expect(responseJson.calorias).to.eql(2000));"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-05 Asignar rutina",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": { \"id\": {{usuarioId}} },\n  \"dia\": \"Lunes\",\n  \"ejercicio\": \"Press de banca\",\n  \"series\": 4,\n  \"repeticiones\": 12\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/rutinas/asignar"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 201 Created', () => pm.response.to.have.status(201));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Rutina creada con id', () => pm.expect(responseJson.id).to.be.a('number'));",
+            "pm.test('Asociada al usuario', () => pm.expect(responseJson.usuario.id).to.eql(Number(pm.environment.get('usuarioId'))));",
+            "pm.test('Series y repeticiones correctas', () => { pm.expect(responseJson.series).to.eql(4); pm.expect(responseJson.repeticiones).to.eql(12); });"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-06 Asignar suplemento",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": { \"id\": {{usuarioId}} },\n  \"nombre\": \"Proteína Whey\",\n  \"dosis\": \"30 g\",\n  \"horario\": \"Post-entreno\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/suplementos/asignar"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 201 Created', () => pm.response.to.have.status(201));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Suplemento creado con id', () => pm.expect(responseJson.id).to.be.a('number'));",
+            "pm.test('Asociado al usuario', () => pm.expect(responseJson.usuario.id).to.eql(Number(pm.environment.get('usuarioId'))));",
+            "pm.test('Nombre correcto', () => pm.expect(responseJson.nombre).to.eql('Proteína Whey'));"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-07 Asignar membresía",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usuario\": { \"id\": {{usuarioId}} },\n  \"tipo\": \"Mensual\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": "{{baseUrl}}/api/membresias/asignar"
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 201 Created', () => pm.response.to.have.status(201));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Membresía creada con id', () => pm.expect(responseJson.id).to.be.a('number'));",
+            "pm.test('Asociada al usuario', () => pm.expect(responseJson.usuario.id).to.eql(Number(pm.environment.get('usuarioId'))));",
+            "pm.test('Tipo y valor correctos', () => { pm.expect(responseJson.tipo).to.eql('Mensual'); pm.expect(responseJson.valor).to.eql(80000); });"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-08 Consultar planes por usuario",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/planes/usuario/{{usuarioId}}" },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 200 OK', () => pm.response.to.have.status(200));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Respuesta es arreglo', () => pm.expect(responseJson).to.be.an('array').and.not.empty);",
+            "pm.test('Planes pertenecen al usuario', () => responseJson.forEach(p => pm.expect(p.usuario.id).to.eql(Number(pm.environment.get('usuarioId')))));",
+            "pm.test('Incluye plan creado', () => pm.expect(responseJson.some(p => p.titulo === 'Definición 8 semanas')).to.be.true);"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CP-09 Consultar rutinas por usuario",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/rutinas/usuario/{{usuarioId}}" },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Estado 200 OK', () => pm.response.to.have.status(200));",
+            "var responseJson = pm.response.json();",
+            "pm.test('Respuesta es arreglo', () => pm.expect(responseJson).to.be.an('array').and.not.empty);",
+            "pm.test('Rutinas pertenecen al usuario', () => responseJson.forEach(r => pm.expect(r.usuario.id).to.eql(Number(pm.environment.get('usuarioId')))));",
+            "pm.test('Incluye rutina creada', () => pm.expect(responseJson.some(r => r.ejercicio === 'Press de banca')).to.be.true);"
+          ],
+          "type": "text/javascript"
+        }
+      }]
+    },
+    {
+      "name": "CN-01 Registro con email duplicado",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombreCompleto\": \"María Duplicada\",\n  \"email\": \"{{emailDemo}}\",\n  \"password\": \"{{passwordDemo}}\"\n}" },
+        "url": "{{baseUrl}}/api/auth/register"
+      },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Estado 409 Conflict', () => pm.response.to.have.status(409));",
+        "pm.test('Código EMAIL_ALREADY_EXISTS', () => pm.expect(pm.response.json().error).to.eql('EMAIL_ALREADY_EXISTS'));"
+      ], "type": "text/javascript" } }]
+    },
+    {
+      "name": "CN-02 Login con contraseña incorrecta",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{emailDemo}}\",\n  \"password\": \"incorrecta\"\n}" },
+        "url": "{{baseUrl}}/api/auth/login"
+      },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Estado 401 Unauthorized', () => pm.response.to.have.status(401));",
+        "pm.test('No expone datos privados', () => pm.expect(pm.response.text()).not.to.include('passwordHash'));"
+      ], "type": "text/javascript" } }]
+    },
+    {
+      "name": "CN-03 Rutina con campo obligatorio ausente",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"usuario\": { \"id\": {{usuarioId}} },\n  \"dia\": \"Martes\",\n  \"series\": 3,\n  \"repeticiones\": 10\n}" },
+        "url": "{{baseUrl}}/api/rutinas/asignar"
+      },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Estado 400 Bad Request', () => pm.response.to.have.status(400));",
+        "pm.test('Detalla el campo ejercicio', () => pm.expect(pm.response.text()).to.include('ejercicio'));"
+      ], "type": "text/javascript" } }]
+    },
+    {
+      "name": "CN-04 Usuario inexistente",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/planes/usuario/9999" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Estado 404 Not Found', () => pm.response.to.have.status(404));",
+        "pm.test('Código USER_NOT_FOUND', () => pm.expect(pm.response.json().error).to.eql('USER_NOT_FOUND'));"
+      ], "type": "text/javascript" } }]
+    },
+    {
+      "name": "CN-05 Ruta inexistente",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/no-existe" },
+      "event": [{ "listen": "test", "script": { "exec": [
+        "pm.test('Estado 404 Not Found', () => pm.response.to.have.status(404));",
+        "pm.test('Código ROUTE_NOT_FOUND', () => pm.expect(pm.response.json().error).to.eql('ROUTE_NOT_FOUND'));"
+      ], "type": "text/javascript" } }]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{token}}", "type": "string" }
+    ]
+  }
+}

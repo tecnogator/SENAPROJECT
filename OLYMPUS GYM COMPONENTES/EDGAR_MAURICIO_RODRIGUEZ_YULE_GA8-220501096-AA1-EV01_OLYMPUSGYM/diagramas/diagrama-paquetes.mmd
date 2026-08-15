@@ -1,0 +1,13 @@
+flowchart TB
+  subgraph Frontend[olympusgym-frontend]
+    P[pages] --> C[components]
+    P --> X[context]
+    P --> A[services/api.js]
+  end
+  subgraph Backend[olympusgym-api]
+    APP[src/app.js] --> MW[middleware]
+    APP --> RT[routes]
+    RT --> DT[data/store.js]
+    RT --> UT[utils/security.js]
+  end
+  A -->|HTTP REST| APP
